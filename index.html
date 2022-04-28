@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>National Park Travel Advisor</title>
+</head>
+
+   <header>
+    <a href="#" class="brand-logo">Natgo</a>
+    <div class="navigation">
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about-us">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#contact-us">Contact Us</a>
+      </div>
+    </div>
+  </header>
+
+<body>
+    <section class="showcase">
+        <div class="slide">
+            <video class="video active" src="" autoplay muted loop></video>
+        </div>
+
+        <div class="content">
+            <h1>Ready to <br><span>explore?</span></h1>
+            <p>Type your national park below!</p>
+        </div>
+
+        <form id="input">
+            <input type="text" id="search-park" autocomplete="off">
+            <p class="center left">
+              <label>
+                <input name="Hotels" class="with-gap" id="country" type="radio"/>
+                <span>Hotels</span>
+              </label>
+            </p>
+            <p class=>
+              <label>
+                <input name="Activities" class="with-gap" id="capital" type="radio" />
+                <span>Activities</span>
+              </label>
+            </p>
+            <p class=>
+                <label>
+                  <input name="Resturaunts" class="with-gap" id="capital" type="radio" />
+                  <span>Resturaunts</span>
+                </label>
+            </p>
+            <button btn class="search-btn btn btn-large blue-grey white-text" id="search">Search</button>
+          </form>
+        
+    </section>
+</body>
+</html>

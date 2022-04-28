@@ -1,0 +1,202 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+header{
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 200px;
+    transition: 0.5s ease;
+}
+
+header .brand-logo{
+    font-size: 2em;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+header .navigation{
+    position: relative;
+}
+
+header .navigation .nav-links a{
+    position: relative;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 30px;
+    transition: 0.3s ease;
+}
+
+header .navigation .nav-links a:before{
+    content: '';
+    position: absolute;
+    background: #fff;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s ease;
+}
+
+header .navigation .nav-links a:hover:before{
+    width: 100%;
+}
+
+.showcase{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: #6082B6;
+    padding: 100px 200px;
+}
+
+.showcase:before{
+    z-index: 777;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.showcase .content{
+    z-index: 888;
+    color: #fff;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    text-align: center;
+}
+
+.showcase .content h1{
+    font-size: 50px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    line-height: 75px;
+    margin-bottom: 40px;
+}
+
+.showcase .content h1 span{
+    font-size: 75px;
+    font-weight: 600;
+}
+
+.showcase .content p{
+    margin-bottom: 25px;
+}
+
+.showcase .media-icons{
+    z-index: 888;
+    position: absolute;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.5s ease;
+}
+
+.showcase .media-icons a{
+    color: #fff;
+    font: 2em;
+    transition: 0.3s ease;
+}
+
+.showcase .media-icons a:hover{
+    transform: scale(1.3);
+}
+
+.showcase .video{
+    z-index: 000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#input{
+    z-index: 999;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#input [type="text"]{
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    padding-right: 60px;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    outline: none;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+}
+
+#input .btn{
+    position: relative;
+    left: 45%;
+}
+
+.about-us h3{
+    text-align: center;
+}
+
+.materialert{
+    position: relative;
+    min-width: 150px;
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.1s linear;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.materialert .material-icons{
+    margin-right: 10px;
+}
+.materialert .close-alert{
+    -webkit-appearance: none;
+    border: 0;
+    cursor: pointer;
+    color: inherit;
+    background: 0 0;
+    font-size: 22px;
+    line-height: 1;
+    font-weight: bold;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .7);
+    filter: alpha(opacity=40);
+    margin-bottom: -5px;
+    position: absolute;
+    top: 16px;
+    right: 5px;
+}
+.materialert.warning{
+    background-color: #fbc02d;
+    color: #fff;
+}
