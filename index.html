@@ -4,67 +4,89 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.4/css/foundation-float.min.css">
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title>National Park Travel Advisor</title>
 </head>
 
-   <header>
-    <a href="#" class="brand-logo">Natgo</a>
-    <div class="navigation">
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about-us">About Us</a>
-        <a href="#services">Services</a>
-        <a href="#contact-us">Contact Us</a>
-      </div>
+  <header class="nav-bar">
+  <a href="#" class="brand-logo">Natgo</a>
+  <div class="navigation">
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about-us">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#contact-us">Contact Us</a>
     </div>
-  </header>
+  </div>
+</header>
 
 <body>
-    <section class="showcase">
+    <section id="home" class="showcase">
         <div class="slide">
-            <video class="video active" src="" autoplay muted loop></video>
+            <video class="video active" src="./assets/video/181015_Extra_DanangDrone_004.mp4" autoplay muted loop></video>
         </div>
 
         <div class="content">
-            <h1>Ready to <br><span>explore?</span></h1>
-            <p>Type your national park below!</p>
+            <h1>Ready to <br><span>explore?</span></h1> 
+            <!-- Dropdown button isn't functional atm, look into a few videos for this later -->
+            <button class="button" id="park-btn" type="button" data-toggle="example-dropdown">All Parks</button>
+              <div class="dropdown-pane" id="park-dropdown" data-dropdown data-auto-focus="true">
+                <ul class="menu">
+                  <li><a href="#">Item 1A</a></li>
+                  <!-- ... -->
+                </ul>
+              </div>
         </div>
 
-        <form id="input">
+        <form id="input" class="row">
             <input type="text" id="search-park" autocomplete="off">
-            <p class="center left">
-              <label>
-                <input name="Hotels" class="with-gap" id="country" type="radio"/>
-                <span>Hotels</span>
-              </label>
-            </p>
-            <p class=>
-              <label>
-                <input name="Activities" class="with-gap" id="capital" type="radio" />
-                <span>Activities</span>
-              </label>
-            </p>
-            <p class=>
-                <label>
-                  <input name="Resturaunts" class="with-gap" id="capital" type="radio" />
-                  <span>Resturaunts</span>
-                </label>
-            </p>
-            <button btn class="search-btn btn btn-large blue-grey white-text" id="search">Search</button>
-          </form>
-        
+            <fieldset class="cell large-6">
+              <input id="formHotels" type="checkbox"><label class="btn-color" for="formHotels">Hotels</label>
+              <input id="formActivities" type="checkbox"><label class="btn-color" for="formActivities">Activities</label>
+              <input id="formResturaunts" type="checkbox"><label class="btn-color" for="formResturaunts">Resturaunts</label>
+            </fieldset>
+        </form>
     </section>
-    <!-- section - about us -->
-  <section class="#about-us">
-    <div class="container">
+    
+    <section class="about-us">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6">
+            <h3 class="header-text" id="about-us"><span>About Us</span></h3>
+            <p class="flow-text">NATGO is a company founded in 2022. add more about me here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <div class="col s12 m6"></div>
+        </div>  
+    </section>
+
+    <br>
+
+    <section class="Services">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6">
+            <h3 class="header-text" id="services"><span>Services</span></h3>
+            <p class="flow-text">Services info goes here, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <div class="col s12 m6"></div>
+        </div>  
+    </section>
+
+    <br>
+
+    <footer class="contact-us">
       <div class="row">
         <div class="col s12 m6">
-          <h3 id="about-us"><span>About Us</span></h3>
-          <p class="flow-text">About us info goes here</p>
-        </div>
-        <div class="col s12 m6">
+          <h3 class="header-text-inv" id="contact-us"><span>Contact Us</span></h3>
+            <p class="flow-text-inv">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <div class="col s12 m6"></div>
+
+          <div class="contact-links">
+            <a href="#email">support@NATGO.com</a>
+            <a href="#call">+928-429-1283</a>
+          </div>
+    </footer>
 
 </body>
 </html>
