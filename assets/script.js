@@ -43,8 +43,18 @@ getNPA();
 
 
 //
-// YELP, RESTAURANT SEARCH
+// YELP, RESTAURANT AND/OR HOTEL SEARCH
 //
+
+// NOTE: findAmenity can be used for both hotels and restaurants.
+// It will need to be given the amenity type depending on the checked selection.
+// ex:
+// if (restaurants) {
+//   findAmenity(lat, long, restaurants);
+// }
+// if (hotels) {
+//   findAmenity(lat, long, hotels,campgrounds,bedbreakfast);
+// }
 
 // Unsecured key lol
 const yelpAPIClientID = "2gz6fez22yED_zpA6BcHbQ"
@@ -60,11 +70,12 @@ const yelpOptions = {
     }
   };
 
-function findFood(latitude, longitude) {
+function findAmenity(latitude, longitude, amenityType) {
   // Create URL from latitude and longitude data from NPS API
+  // amenity should be "restaurants" for food and "hotels,campgrounds,bedbreakfast" for hotels.
   // Search radius is currently hardcoded to 20000 meters
   // Must opt-in to https://cors-anywhere.herokuapp.com/corsdemo for functionality
-  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?latitude=" + latitude + "&longitude=" + longitude + "&radius=20000"
+  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000"
   fetch(yelpAPIURL, yelpOptions)
   .then(function(response) {
       if(response.ok) {
@@ -73,27 +84,28 @@ function findFood(latitude, longitude) {
   })
   .then(function(data) {
     if (data) {
-      // create empty array
-      let foodArray = [];
+      // create empty array to which an object for each returned restaurant will be pushed
+      let amenityArray = [];
       for (let i = 0; i < data.businesses.length; i++) {
         // create array of restaurant category titles
-        let foodCat = [];
+        let amenityCat = [];
         for (let j = 0; j < data.businesses[i].categories.length; j++) {
-          foodCat.push(data.businesses[i].categories[j].title);
+          amenityCat.push(data.businesses[i].categories[j].title);
         };
-        foodArray.push({
+        amenityArray.push({
             "name": data.businesses[i].name,
             "image": data.businesses[i].image_url,
             "price": data.businesses[i].price,
             "distance": Math.round((data.businesses[i].distance/1609)*100)/100 + " miles",
             "rating": data.businesses[i].rating,
-            "categories": foodCat});
+            "categories": amenityCat});
       }
-    console.log(foodArray); // array of restaurant objects containing their name, stock image, price range, and distance in miles (from meters)
+    console.log(amenityArray); // array of restaurant objects containing their name, stock image, price range, and distance in miles (from meters)
     // TO DO: execute a function that will display this data
     }
   })
 };
 
-// Test: lat/long from Acadia Natl Park
-// findFood("44.409286", "-68.247501");
+// Test: lat/long from Acadia Natl Park, find restaurants
+// findAmenity("44.409286", "-68.247501", "restaurants");
+// findAmenity("44.409286", "-68.247501", "hotels,campgrounds,bedbreakfast");
