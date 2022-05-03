@@ -1,5 +1,8 @@
+let parkNames =[];
+let activityOptions={};
+let npsData = null;
 function getNPA() {
-    let npsData = null;
+    
     const npsDataString = localStorage.getItem("group-project-1");
     if (npsDataString == null) {
         npsData = [];
@@ -29,58 +32,74 @@ function getNPA() {
                     }
 
                 }
+                
                 console.log(npsData);
                 localStorage.setItem("group-project-1", JSON.stringify(npsData));
+                 
+                processNpsData();
+
+                
+
 
 
             });
 
 
-    }
+    } else {processNpsData()};
+    
 };
 
 getNPA();
 
+function processNpsData(){
+    for (let i=0; i < npsData.length; i++){
+        const fullName= npsData[i].fullName
+        parkNames.push(fullName);
+        const activities=[];;
+        for (let j= 0; j<npsData[i].activities.length;j++){
+            const activityName=npsData[i].activities[j].name;
+          activities.push(activityName);
+        }
+        
+        activityOptions[fullName]=activities;
+        
+        
+    }
+
+console.log(parkNames);
+console.log(activityOptions);
+
+}
 
 //
 // YELP, RESTAURANT AND/OR HOTEL SEARCH
 //
 
-// NOTE: findAmenity can be used for both hotels and restaurants.
-// It will need to be given the amenity type depending on the checked selection.
-// ex:
-// if (restaurants) {
-//   findAmenity(lat, long, restaurants);
-// }
-// if (hotels) {
-//   findAmenity(lat, long, hotels,campgrounds,bedbreakfast);
-// }
-
 // Unsecured key lol
 const yelpAPIClientID = "2gz6fez22yED_zpA6BcHbQ"
 const yelpAPIKey = "U7dTFKYQBF07SLpmXc-SJIrY3miWksIDuhlu1GP0bK7ZRmFw-T4MZCW8CjdLlVaZ5Vj2YptYNPVhOz7mwd6jxoZPVPrqB0fwXn031xBEO7IZxJZ26S0Z6-9XZU1tYnYx"
 
-// Fetch options
+// Yelp fetch options
 const yelpOptions = {
   method: "GET",
   headers: {
     "Authorization": "Bearer " + yelpAPIKey, //input key
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json"
-    }
-  };
+  }
+};
 
 function findAmenity(latitude, longitude, amenityType) {
-  // Create URL from latitude and longitude data from NPS API
-  // amenity should be "restaurants" for food and "hotels,campgrounds,bedbreakfast" for hotels.
-  // Search radius is currently hardcoded to 20000 meters
-  // Must opt-in to https://cors-anywhere.herokuapp.com/corsdemo for functionality
-  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000"
+// Create URL from latitude and longitude data from NPS API
+// amenity should be "restaurants" for food and "hotels,campgrounds,bedbreakfast" for hotels.
+// Search radius is currently hardcoded to 20000 meters
+// Must opt-in to https://cors-anywhere.herokuapp.com/corsdemo for functionality
+  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000";
   fetch(yelpAPIURL, yelpOptions)
   .then(function(response) {
-      if(response.ok) {
-        return response.json();
-      }
+    if(response.ok) {
+      return response.json();
+    }
   })
   .then(function(data) {
     if (data) {
@@ -93,14 +112,14 @@ function findAmenity(latitude, longitude, amenityType) {
           amenityCat.push(data.businesses[i].categories[j].title);
         };
         amenityArray.push({
-            "name": data.businesses[i].name,
-            "image": data.businesses[i].image_url,
-            "price": data.businesses[i].price,
-            "distance": Math.round((data.businesses[i].distance/1609)*100)/100 + " miles",
-            "rating": data.businesses[i].rating,
-            "categories": amenityCat});
+          "name": data.businesses[i].name,
+          "image": data.businesses[i].image_url,
+          "price": data.businesses[i].price,
+          "distance": Math.round((data.businesses[i].distance/1609)*100)/100 + " miles",
+          "rating": data.businesses[i].rating,
+          "categories": amenityCat});
       }
-    console.log(amenityArray); // array of restaurant objects containing their name, stock image, price range, and distance in miles (from meters)
+      console.log(amenityArray); // array of restaurant objects containing their name, stock image, price range, and distance in miles (from meters)
     // TO DO: execute a function that will display this data
     }
   })
@@ -115,8 +134,3 @@ function whichAmenities(latitude, longitude, hotels, restaurants) {
     findAmenity(latitude, longitude, "restaurants");
   }
 };
-
-// Test: lat/long from Acadia Natl Park, find restaurants
-// findAmenity("44.409286", "-68.247501", "restaurants");
-// findAmenity("44.409286", "-68.247501", "hotels,campgrounds,bedbreakfast");
-// whichAmenities("44.409286", "-68.247501", false, false);
