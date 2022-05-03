@@ -106,6 +106,17 @@ function findAmenity(latitude, longitude, amenityType) {
   })
 };
 
+function whichAmenities(latitude, longitude, hotels, restaurants) {
+  // hotels and restaurants should be boolean
+  if (hotels) {
+    findAmenity(latitude, longitude, "hotels,campgrounds,bedbreakfast");
+  }
+  if (restaurants) {
+    findAmenity(latitude, longitude, "restaurants");
+  }
+};
+
 // Test: lat/long from Acadia Natl Park, find restaurants
 // findAmenity("44.409286", "-68.247501", "restaurants");
 // findAmenity("44.409286", "-68.247501", "hotels,campgrounds,bedbreakfast");
+// whichAmenities("44.409286", "-68.247501", false, false);
