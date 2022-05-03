@@ -15,6 +15,11 @@ header{
     align-items: center;
     padding: 15px 200px;
     transition: 0.5s ease;
+    background-color: rgba(0,0,0,.25);
+}
+
+.nav-bar{
+    position: fixed;
 }
 
 header .brand-logo{
@@ -36,7 +41,7 @@ header .navigation .nav-links a{
     font-weight: 700;
     text-decoration: none;
     margin-left: 30px;
-    transition: 0.3s ease;
+    transition: 0.5s ease;
 }
 
 header .navigation .nav-links a:before{
@@ -47,13 +52,16 @@ header .navigation .nav-links a:before{
     height: 3px;
     bottom: 0;
     left: 0;
-    transition: 0.3s ease;
+    transition: 0.5s ease;
 }
 
 header .navigation .nav-links a:hover:before{
     width: 100%;
 }
 
+.btn-color{
+    color: white;
+}
 .showcase{
     position: relative;
     width: 100%;
@@ -61,7 +69,7 @@ header .navigation .nav-links a:hover:before{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background: #6082B6;
+    background: #646464;
     padding: 100px 200px;
 }
 
@@ -92,6 +100,7 @@ header .navigation .nav-links a:hover:before{
     letter-spacing: 5px;
     line-height: 75px;
     margin-bottom: 40px;
+    color: white;
 }
 
 .showcase .content h1 span{
@@ -157,46 +166,81 @@ header .navigation .nav-links a:hover:before{
     left: 45%;
 }
 
-.about-us h3{
-    text-align: center;
-}
-
-.materialert{
-    position: relative;
-    min-width: 150px;
-    padding: 15px;
-    margin-bottom: 20px;
-    margin-top: 15px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    transition: all 0.1s linear;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+#search{
+    position: absolute;
+    width: fit-content;
+    padding: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    outline: none;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
     display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
+    justify-content: center;
     align-items: center;
 }
-.materialert .material-icons{
-    margin-right: 10px;
-}
-.materialert .close-alert{
-    -webkit-appearance: none;
-    border: 0;
-    cursor: pointer;
-    color: inherit;
-    background: 0 0;
-    font-size: 22px;
-    line-height: 1;
-    font-weight: bold;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .7);
-    filter: alpha(opacity=40);
-    margin-bottom: -5px;
+
+#search:hover{
     position: absolute;
-    top: 16px;
-    right: 5px;
+    padding: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    outline: none;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    align-items: center;
+    transition: .5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.materialert.warning{
-    background-color: #fbc02d;
-    color: #fff;
+
+footer{
+    background-color: black;
+}
+
+.header-text{
+    color: rgb(0, 0, 0);
+    font-size: 2em;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: white;  
+}
+
+.header-text-inv{
+    color: rgb(255, 255, 255);
+    font-size: 2em;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.flow-text{
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    text-decoration: none;
+    background-color: white; 
+}
+
+.flow-text-inv{
+    color: rgb(255, 255, 255);
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.contact-links{
+    color: white;
+}
+
+#park-btn{
+    color: black;
+    background-color: white;
+    border-radius: 10px;
 }
