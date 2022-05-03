@@ -1,5 +1,8 @@
+let parkNames =[];
+let activityOptions={};
+let npsData = null;
 function getNPA() {
-    let npsData = null;
+    
     const npsDataString = localStorage.getItem("group-project-1");
     if (npsDataString == null) {
         npsData = [];
@@ -29,18 +32,26 @@ function getNPA() {
                     }
 
                 }
+                
                 console.log(npsData);
                 localStorage.setItem("group-project-1", JSON.stringify(npsData));
+                 
+                processNpsData();
+
+                
+
 
 
             });
 
 
-    }
+    } else {processNpsData()};
+    
 };
 
 getNPA();
 
+<<<<<<< HEAD
 
 //
 // YELP, RESTAURANT SEARCH
@@ -97,3 +108,24 @@ function findFood(latitude, longitude) {
 
 // Test: lat/long from Acadia Natl Park
 // findFood("44.409286", "-68.247501");
+=======
+function processNpsData(){
+    for (let i=0; i < npsData.length; i++){
+        const fullName= npsData[i].fullName
+        parkNames.push(fullName);
+        const activities=[];;
+        for (let j= 0; j<npsData[i].activities.length;j++){
+            const activityName=npsData[i].activities[j].name;
+          activities.push(activityName);
+        }
+        
+        activityOptions[fullName]=activities;
+        
+        
+    }
+
+console.log(parkNames);
+console.log(activityOptions);
+
+}
+>>>>>>> f1083defc820bf6caedba17feab7f8e42e514292
