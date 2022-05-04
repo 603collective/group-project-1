@@ -70,3 +70,67 @@ console.log(parkNames);
 console.log(activityOptions);
 
 }
+
+//
+// YELP, RESTAURANT AND/OR HOTEL SEARCH
+//
+
+// Unsecured key lol
+const yelpAPIClientID = "2gz6fez22yED_zpA6BcHbQ";
+const yelpAPIKey = "U7dTFKYQBF07SLpmXc-SJIrY3miWksIDuhlu1GP0bK7ZRmFw-T4MZCW8CjdLlVaZ5Vj2YptYNPVhOz7mwd6jxoZPVPrqB0fwXn031xBEO7IZxJZ26S0Z6-9XZU1tYnYx";
+
+// Yelp fetch options
+const yelpOptions = {
+  method: "GET",
+  headers: {
+    "Authorization": "Bearer " + yelpAPIKey, //input key
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json"
+  }
+};
+
+function findAmenity(latitude, longitude, amenityType) {
+  // Create URL from latitude and longitude data from NPS API
+  // amenity should be "restaurants" for food and "hotels,campgrounds,bedbreakfast" for hotels.
+  // Search radius is currently hardcoded to 20000 meters
+  // Must opt-in to https://cors-anywhere.herokuapp.com/corsdemo for functionality
+  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000"
+  fetch(yelpAPIURL, yelpOptions)
+  .then(function(response) {
+    if(response.ok) {
+      return response.json();
+    }
+  })
+  .then(function(data) {
+    if (data) {
+      // create empty array to which an object for each returned restaurant will be pushed
+      let amenityArray = [];
+      for (let i = 0; i < data.businesses.length; i++) {
+        // create array of restaurant category titles
+        let amenityCat = [];
+        for (let j = 0; j < data.businesses[i].categories.length; j++) {
+          amenityCat.push(data.businesses[i].categories[j].title);
+        };
+        amenityArray.push({
+            "name": data.businesses[i].name,
+            "image": data.businesses[i].image_url,
+            "price": data.businesses[i].price,
+            "distance": Math.round((data.businesses[i].distance/1609)*100)/100 + " miles",
+            "rating": data.businesses[i].rating,
+            "categories": amenityCat});
+      }
+    console.log(amenityArray); // array of restaurant objects containing their name, stock image, price range, and distance in miles (from meters)
+    // TO DO: execute a function that will display this data
+    }
+  })
+};
+
+function whichAmenities(latitude, longitude, hotels, restaurants) {
+// hotels and restaurants should be boolean
+  if (hotels) {
+    findAmenity(latitude, longitude, "hotels,campgrounds,bedbreakfast");
+  }
+  if (restaurants) {
+    findAmenity(latitude, longitude, "restaurants");
+  }
+};
