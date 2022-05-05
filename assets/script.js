@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // DOM Element Variables
 const searchBtn = document.querySelector("#search-btn");
 const formPark = document.querySelector("#search-park");
@@ -10,9 +9,6 @@ const hotelContainer = document.querySelector("#hotel-results");
 const activityContainer = document.querySelector("#activity-results");
 const restaurantContainer = document.querySelector("#restaurant-results");
 
-let parkNames =[];
-let activityOptions={};
-=======
 //Full names of all National Parks in an array of strings-used for search and autocomplete on landing page. 
 let parkNames = [];
 
@@ -20,7 +16,6 @@ let parkNames = [];
 let activityOptions = {};
 
 //raw data pulled from National Park Service API
->>>>>>> main
 let npsData = null;
 
 //latitude and longitude of each park-used to locate amenities nearby. An object using the full park name as a key and the latitude and longitude in an array.
@@ -107,6 +102,15 @@ function processNpsData() {
 
 }
 
+function displayActivities(parkFullName) {
+  let activitiesEl = document.createElement("h4");
+  for (i = 0; i < activityOptions[parkFullName].length -1; i++) {
+    activitiesEl.textContent += activityOptions[parkFullName][i] + ", ";
+  };
+  activitiesEl.textContent += activityOptions[parkFullName].pop(); //print last category with no comma
+  activityContainer.append(activitiesEl);
+};
+
 //
 // YELP, RESTAURANT AND/OR HOTEL SEARCH
 //
@@ -125,7 +129,6 @@ const yelpOptions = {
     }
 };
 
-<<<<<<< HEAD
 // Create empty array to which an object for each returned restaurant will be pushed
 let hotelArray = [];
 let foodArray = [];
@@ -142,7 +145,7 @@ function findAmenity(latitude, longitude, amenity) {
   } else if (amenity == "restaurants") {
     amenityType = "restaurants"
   };
-  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000"
+  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000&limit=5"
   fetch(yelpAPIURL, yelpOptions)
   .then(function(response) {
     if(response.ok) {
@@ -184,43 +187,6 @@ function findAmenity(latitude, longitude, amenity) {
       displayAmenities(foodArray, restaurantContainer);
     }
   })
-=======
-function findAmenity(latitude, longitude, amenityType) {
-    // Create URL from latitude and longitude data from NPS API
-    // amenity should be "restaurants" for food and "hotels,campgrounds,bedbreakfast" for hotels.
-    // Search radius is currently hardcoded to 20000 meters
-    // Must opt-in to https://cors-anywhere.herokuapp.com/corsdemo for functionality
-    let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000"
-    fetch(yelpAPIURL, yelpOptions)
-        .then(function (response) {
-            if (response.ok) {
-                return response.json();
-            }
-        })
-        .then(function (data) {
-            if (data) {
-                // create empty array to which an object for each returned restaurant will be pushed
-                let amenityArray = [];
-                for (let i = 0; i < data.businesses.length; i++) {
-                    // create array of restaurant category titles
-                    let amenityCat = [];
-                    for (let j = 0; j < data.businesses[i].categories.length; j++) {
-                        amenityCat.push(data.businesses[i].categories[j].title);
-                    };
-                    amenityArray.push({
-                        "name": data.businesses[i].name,
-                        "image": data.businesses[i].image_url,
-                        "price": data.businesses[i].price,
-                        "distance": Math.round((data.businesses[i].distance / 1609) * 100) / 100 + " miles",
-                        "rating": data.businesses[i].rating,
-                        "categories": amenityCat
-                    });
-                }
-                console.log(amenityArray); // array of restaurant objects containing their name, stock image, price range, and distance in miles (from meters)
-                // TO DO: execute a function that will display this data
-            }
-        })
->>>>>>> main
 };
 
 function displayAmenities(array, container) {
@@ -252,7 +218,6 @@ function displayAmenities(array, container) {
 };
 
 function whichAmenities(latitude, longitude, hotels, restaurants) {
-<<<<<<< HEAD
 // hotels and restaurants should be boolean
 // the booleans will come from whether the boxes are checked on the form
   if (hotels) {
@@ -269,21 +234,20 @@ function whichAmenities(latitude, longitude, hotels, restaurants) {
 
 const searchHandler = function(event) {
   event.preventDefault();
-  // makes container viewable
+  // Make container viewable
   resultsContainer.style.display = "block";
-  //Display park name in results, maybe with description?
-  //Retrieve lat/long from formPark.value
-  whichAmenities("44.409286", "-68.247501", formHotels.checked, formRestaurants.checked);
-}
+  // Remove any previous search results
+  hotelContainer.innerHTML = ""
+  activityContainer.innerHTML = ""
+  restaurantContainer.innerHTML = ""
+  // Display park name in results, maybe with description?
+  // Retrieve lat/long from formPark.value
+  let lat = parkLatLong[formPark.value][0];
+  let long = parkLatLong[formPark.value][1];
+  whichAmenities(lat, long, formHotels.checked, formRestaurants.checked);
+  if (formActivities.checked) {
+    displayActivities(formPark.value);
+  }
+};
 
 searchBtn.addEventListener("click", searchHandler);
-=======
-    // hotels and restaurants should be boolean
-    if (hotels) {
-        findAmenity(latitude, longitude, "hotels,campgrounds,bedbreakfast");
-    }
-    if (restaurants) {
-        findAmenity(latitude, longitude, "restaurants");
-    }
-};
->>>>>>> main
