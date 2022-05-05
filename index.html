@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.4/css/foundation-float.min.css">
     <link rel="stylesheet" type="text/css" href="style.css" />
+
     <title>National Park Travel Advisor</title>
 </head>
 
@@ -29,18 +30,79 @@
 
         <div class="content">
             <h1>Ready to <br><span>explore?</span></h1> 
-            <!-- Dropdown button isn't functional atm, look into a few videos for this later -->
-            <button class="button" id="park-btn" type="button" data-toggle="example-dropdown">All Parks</button>
-              <div class="dropdown-pane" id="park-dropdown" data-dropdown data-auto-focus="true">
-                <ul class="menu">
-                  <li><a href="#">Item 1A</a></li>
-                  <!-- ... -->
-                </ul>
-              </div>
         </div>
 
-        <form id="input" class="row">
-            <input type="text" id="search-park" autocomplete="off">
+    
+        <form onsubmit="return false" id="input" class="row">
+          <p>
+            <input type="text" list="Nationalparks" id="search-park" >
+            <datalist id="Nationalparks">
+              <option value="Acadia">
+                <option value="American Samoa">
+                <option value="Arches">
+                <option value="Badlands">
+                <option value="Big Bend">
+                <option value="Biscayne">
+                <option value="Black Canyon of the gunnison">
+                <option value="Bryce canyon">
+                <option value="canyonlands">
+                <option value="capitol reef">
+                <option value="Carlsbad Caverns">
+                <option value="Channel islands">
+                <option value="congaree">
+                <option value="Crater lake">
+                <option value="cuyahoga valley">
+                <option value="Death valley">
+                <option value="Denali">
+                <option value="Dry tortugas">
+                <option value="Everglades">
+                <option value="Gates of the arctic">
+                <option value="Gateway arch">
+                <option value="Glacier">
+                <option value="Glacier Bay">
+                <option value="Grand Canyon">
+                <option value="Grand Teton">
+                <option value="Great basin">
+                <option value="Great sand dunes">
+                <option value="Great smokey mountains">
+                <option value="Guadalupe Mountains">
+                <option value="Haleakala">
+                <option value="Hawaii volcanoes">
+                <option value="Hot springs">
+                <option value="Indiana dunes">
+                <option value="Isle royale">
+                <option value="Joshua tree">
+                <option value="Katmai">
+                <option value="Kenai Fjords">
+                <option value="Kings canyon">
+                <option value="Kobuk valley">
+                <option value="Lake clark">
+                <option value="Lassen volcanic">
+                <option value="Mammoth cave">
+                <option value="Mesa verde">
+                <option value="Mount Rainer">
+                <option value="New river gorge">
+                <option value="North cascades">
+                <option value="Olympic">
+                <option value="Petrified forest">
+                <option value="Pinnacles">
+                <option value="Redwood">
+                <option value="Rocky mountain">
+                <option value="Saguaro">
+                <option value="Sequoia">
+                <option value="Shenandoah">
+                <option value="theodore roosevelt">
+                <option value="virgin islands">
+                <option value="voyageurs">
+                <option value="White sands">
+                <option value="Wind cave">
+                <option value="Wrangell- st.elias">
+                <option value="yellowstone">
+                <option value="yosemite">
+                <option value="zion">
+                   
+                </datalist>
+            
             <fieldset class="cell large-6">
               <input id="formHotels" type="checkbox"><label class="btn-color" for="formHotels">Hotels</label>
               <input id="formActivities" type="checkbox"><label class="btn-color" for="formActivities">Activities</label>
