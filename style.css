@@ -245,10 +245,9 @@ footer{
     border-radius: 10px;
 }
 
-<<<<<<< HEAD
 #results{
     display: none;
-=======
+}
 
 /**@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
@@ -337,5 +336,4 @@ button i {
 
 .results ul li:hover {
   background: #ececec
->>>>>>> main
 }

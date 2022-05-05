@@ -250,9 +250,8 @@ const searchHandler = function(event) {
   hotelContainer.innerHTML = ""
   activityContainer.innerHTML = ""
   restaurantContainer.innerHTML = ""
-  // Retrieve park name from formPark.value
-  let parkFullName;
-
+  
+  
   // Retrieve lat/long from formPark.value
   let lat = parkLatLong[formPark.value][0];
   let long = parkLatLong[formPark.value][1];
