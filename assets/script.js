@@ -1,3 +1,15 @@
+// DOM Element Variables
+const searchBtn = document.querySelector("#search-btn");
+const formPark = document.querySelector("#search-park");
+const formHotels = document.querySelector("#formHotels");
+const formActivities = document.querySelector("#formActivities");
+const formRestaurants = document.querySelector("#formRestaurants");
+const resultsContainer = document.querySelector("#results");
+const hotelContainer = document.querySelector("#hotel-results");
+const activityContainer = document.querySelector("#activity-results");
+const restaurantContainer = document.querySelector("#restaurant-results");
+const autoCompleteList = document.querySelector("#Nationalparks");
+
 //Full names of all National Parks in an array of strings-used for search and autocomplete on landing page. 
 let parkNames = [];
 
@@ -91,6 +103,15 @@ function processNpsData() {
 
 }
 
+function displayActivities(parkFullName) {
+  let activitiesEl = document.createElement("h4");
+  for (i = 0; i < activityOptions[parkFullName].length -1; i++) {
+    activitiesEl.textContent += activityOptions[parkFullName][i] + ", ";
+  };
+  activitiesEl.textContent += activityOptions[parkFullName].pop(); //print last category with no comma
+  activityContainer.append(activitiesEl);
+};
+
 //
 // YELP, RESTAURANT AND/OR HOTEL SEARCH
 //
@@ -109,49 +130,136 @@ const yelpOptions = {
     }
 };
 
-function findAmenity(latitude, longitude, amenityType) {
-    // Create URL from latitude and longitude data from NPS API
-    // amenity should be "restaurants" for food and "hotels,campgrounds,bedbreakfast" for hotels.
-    // Search radius is currently hardcoded to 20000 meters
-    // Must opt-in to https://cors-anywhere.herokuapp.com/corsdemo for functionality
-    let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000"
-    fetch(yelpAPIURL, yelpOptions)
-        .then(function (response) {
-            if (response.ok) {
-                return response.json();
-            }
-        })
-        .then(function (data) {
-            if (data) {
-                // create empty array to which an object for each returned restaurant will be pushed
-                let amenityArray = [];
-                for (let i = 0; i < data.businesses.length; i++) {
-                    // create array of restaurant category titles
-                    let amenityCat = [];
-                    for (let j = 0; j < data.businesses[i].categories.length; j++) {
-                        amenityCat.push(data.businesses[i].categories[j].title);
-                    };
-                    amenityArray.push({
-                        "name": data.businesses[i].name,
-                        "image": data.businesses[i].image_url,
-                        "price": data.businesses[i].price,
-                        "distance": Math.round((data.businesses[i].distance / 1609) * 100) / 100 + " miles",
-                        "rating": data.businesses[i].rating,
-                        "categories": amenityCat
-                    });
-                }
-                console.log(amenityArray); // array of restaurant objects containing their name, stock image, price range, and distance in miles (from meters)
-                // TO DO: execute a function that will display this data
-            }
-        })
+// Create empty array to which an object for each returned restaurant will be pushed
+let hotelArray = [];
+let foodArray = [];
+
+function findAmenity(latitude, longitude, amenity) {
+  // Create URL from latitude and longitude data from NPS API
+  // amenity should be "restaurants" for food and "hotels,campgrounds,bedbreakfast" for hotels.
+  // Search radius is currently hardcoded to 20000 meters
+  // Must opt-in to https://cors-anywhere.herokuapp.com/corsdemo for functionality
+  let amenityType;
+  // Set search query term for amenity type
+  if (amenity == "hotels") {
+    amenityType = "hotels,campgrounds,bedbreakfast";
+  } else if (amenity == "restaurants") {
+    amenityType = "restaurants"
+  };
+  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000&limit=5"
+  fetch(yelpAPIURL, yelpOptions)
+  .then(function(response) {
+    if(response.ok) {
+      return response.json();
+    }
+  })
+  .then(function(data) {
+    if (data) {
+      for (let i = 0; i < data.businesses.length; i++) {
+        // create array of restaurant category titles
+        let amenityCat = [];
+        for (let j = 0; j < data.businesses[i].categories.length; j++) {
+          amenityCat.push(data.businesses[i].categories[j].title);
+        };
+        if (amenityType == "restaurants") { // push to empty restaurant array
+          foodArray.push({
+            "name": data.businesses[i].name,
+            "image": data.businesses[i].image_url,
+            "price": data.businesses[i].price,
+            "distance": Math.round((data.businesses[i].distance/1609)*100)/100 + " miles", //converts to miles
+            "rating": data.businesses[i].rating,
+            "categories": amenityCat});
+        } else { // push to empty hotel array
+          hotelArray.push({
+            "name": data.businesses[i].name,
+            "image": data.businesses[i].image_url,
+            "price": data.businesses[i].price,
+            "distance": Math.round((data.businesses[i].distance/1609)*100)/100 + " miles",
+            "rating": data.businesses[i].rating,
+            "categories": amenityCat});
+        }
+      }
+    }
+  })
+  .then(function() {
+    if (amenity == "hotels") {
+      displayAmenities(hotelArray, hotelContainer);
+    } else if (amenity == "restaurants") {
+      displayAmenities(foodArray, restaurantContainer);
+    }
+  })
+};
+
+function displayAmenities(array, container) {
+  for (let i = 0; i < array.length; i++) {
+    let nameEl = document.createElement("h3");
+    nameEl.textContent = array[i].name;
+    let imgEl = document.createElement("img");
+    imgEl.setAttribute("src", array[i].image);
+    imgEl.style.maxWidth = "300px";
+    imgEl.textContent = array[i].image;
+    let priceEl = document.createElement("p");
+    priceEl.textContent = array[i].price;
+    let distanceEl = document.createElement("p");
+    distanceEl.textContent = array[i].distance;
+    let ratingEl = document.createElement("p");
+    ratingEl.textContent = array[i].rating;
+    let catEl = document.createElement("p");
+    for (let j = 0; j < array[i].categories.length - 1; j++) {  //print each category separated by commas
+      catEl.textContent += array[i].categories[j] + ", ";
+    };
+    catEl.textContent += array[i].categories.pop(); //print last category with no comma
+    container.append(nameEl);
+    container.append(imgEl);
+    container.append(priceEl);
+    container.append(distanceEl);
+    container.append(ratingEl);
+    container.append(catEl);
+  }
 };
 
 function whichAmenities(latitude, longitude, hotels, restaurants) {
-    // hotels and restaurants should be boolean
-    if (hotels) {
-        findAmenity(latitude, longitude, "hotels,campgrounds,bedbreakfast");
-    }
-    if (restaurants) {
-        findAmenity(latitude, longitude, "restaurants");
-    }
+// hotels and restaurants should be boolean
+// the booleans will come from whether the boxes are checked on the form
+  if (hotels) {
+    findAmenity(latitude, longitude, "hotels");
+  };
+  if (restaurants) {
+    findAmenity(latitude, longitude, "restaurants");
+  };
 };
+
+// AUTOCOMPLETE DATA - PARK NAMES
+
+//Create the autocomplete options
+for (i = 0; i < parkNames.length; i++) {
+  let opt = document.createElement("option");
+  opt.setAttribute("value", parkNames[i]);
+  autoCompleteList.append(opt);
+};
+
+// 
+// FORM SUBMISSION EVENT HANDLING
+// 
+
+const searchHandler = function(event) {
+  event.preventDefault();
+  // Make container viewable
+  resultsContainer.style.display = "block";
+  // Remove any previous search results NOT CURRENTLY WORKING
+  hotelContainer.innerHTML = ""
+  activityContainer.innerHTML = ""
+  restaurantContainer.innerHTML = ""
+  // Retrieve park name from formPark.value
+  let parkFullName;
+
+  // Retrieve lat/long from formPark.value
+  let lat = parkLatLong[formPark.value][0];
+  let long = parkLatLong[formPark.value][1];
+  whichAmenities(lat, long, formHotels.checked, formRestaurants.checked);
+  if (formActivities.checked) {
+    displayActivities(formPark.value);
+  }
+};
+
+searchBtn.addEventListener("click", searchHandler);

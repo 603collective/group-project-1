@@ -37,7 +37,7 @@
           <p>
             <input type="text" list="Nationalparks" id="search-park" >
             <datalist id="Nationalparks">
-              <option value="Acadia">
+              <!-- <option value="Acadia">
                 <option value="American Samoa">
                 <option value="Arches">
                 <option value="Badlands">
@@ -99,7 +99,7 @@
                 <option value="Wrangell- st.elias">
                 <option value="yellowstone">
                 <option value="yosemite">
-                <option value="zion">
+                <option value="zion"> -->
                    
                 </datalist>
             
@@ -108,9 +108,25 @@
               <input id="formActivities" type="checkbox"><label class="btn-color" for="formActivities">Activities</label>
               <input id="formRestaurants" type="checkbox"><label class="btn-color" for="formRestaurants">Restaurants</label>
             </fieldset>
+            <!-- Placeholder search button -->
+            <button id="search-btn" type="submit">Search</button> 
         </form>
     </section>
-    
+
+    <!-- Placeholder results container -->
+    <section id="results">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6">
+            <h3 class="header-text" id="results"><span>Results</span></h3>
+            <div id="activity-results"></div>
+            <div id="hotel-results"></div>
+            <div id="restaurant-results"></div>
+          </div>
+          <div class="col s12 m6"></div>
+        </div>  
+    </section>
+
     <section class="about-us">
       <div class="container">
         <div class="row">
