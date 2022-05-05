@@ -8,6 +8,7 @@ const resultsContainer = document.querySelector("#results");
 const hotelContainer = document.querySelector("#hotel-results");
 const activityContainer = document.querySelector("#activity-results");
 const restaurantContainer = document.querySelector("#restaurant-results");
+const autoCompleteList = document.querySelector("#Nationalparks");
 
 //Full names of all National Parks in an array of strings-used for search and autocomplete on landing page. 
 let parkNames = [];
@@ -228,6 +229,15 @@ function whichAmenities(latitude, longitude, hotels, restaurants) {
   };
 };
 
+// AUTOCOMPLETE DATA - PARK NAMES
+
+//Create the autocomplete options
+for (i = 0; i < parkNames.length; i++) {
+  let opt = document.createElement("option");
+  opt.setAttribute("value", parkNames[i]);
+  autoCompleteList.append(opt);
+};
+
 // 
 // FORM SUBMISSION EVENT HANDLING
 // 
@@ -236,11 +246,13 @@ const searchHandler = function(event) {
   event.preventDefault();
   // Make container viewable
   resultsContainer.style.display = "block";
-  // Remove any previous search results
+  // Remove any previous search results NOT CURRENTLY WORKING
   hotelContainer.innerHTML = ""
   activityContainer.innerHTML = ""
   restaurantContainer.innerHTML = ""
-  // Display park name in results, maybe with description?
+  // Retrieve park name from formPark.value
+  let parkFullName;
+
   // Retrieve lat/long from formPark.value
   let lat = parkLatLong[formPark.value][0];
   let long = parkLatLong[formPark.value][1];
