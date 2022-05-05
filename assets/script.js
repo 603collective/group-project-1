@@ -246,12 +246,12 @@ const searchHandler = function(event) {
   event.preventDefault();
   // Make container viewable
   resultsContainer.style.display = "block";
-  // Remove any previous search results NOT CURRENTLY WORKING
+  // Remove any previous search results
   hotelContainer.innerHTML = ""
   activityContainer.innerHTML = ""
   restaurantContainer.innerHTML = ""
-  
-  
+  hotelArray = [];
+  foodArray = [];
   // Retrieve lat/long from formPark.value
   let lat = parkLatLong[formPark.value][0];
   let long = parkLatLong[formPark.value][1];
