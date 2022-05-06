@@ -60,16 +60,21 @@ header .navigation .nav-links a:hover:before{
 }
 
 .btn-color{
-    background-color: #0b410d; /* Green */
-  border: none;
-  border-radius:  50%;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  font-weight: bold;
-  color: #fff;
+  
+  position: absolute;
+    width: fit-content;
+    padding: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    outline: none;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .showcase{
