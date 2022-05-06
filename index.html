@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.7.4/css/foundation-float.min.css">
     <link rel="stylesheet" type="text/css" href="style.css" />
+
     <title>National Park Travel Advisor</title>
 </head>
 
@@ -29,57 +30,141 @@
 
         <div class="content">
             <h1>Ready to <br><span>explore?</span></h1> 
-            <!-- Dropdown button isn't functional atm, look into a few videos for this later -->
-            <button class="button" id="park-btn" type="button" data-toggle="example-dropdown">All Parks</button>
-              <div class="dropdown-pane" id="park-dropdown" data-dropdown data-auto-focus="true">
-                <ul class="menu">
-                  <li><a href="#">Item 1A</a></li>
-                  <!-- ... -->
-                </ul>
-              </div>
         </div>
 
-        <form id="input" class="row">
-            <input type="text" id="search-park" autocomplete="off">
+    
+        <form onsubmit="return false" id="input" class="row">
+          <p>
+            <input type="text" list="Nationalparks" id="search-park" >
+            <datalist id="Nationalparks">
+              <!-- <option value="Acadia">
+                <option value="American Samoa">
+                <option value="Arches">
+                <option value="Badlands">
+                <option value="Big Bend">
+                <option value="Biscayne">
+                <option value="Black Canyon of the gunnison">
+                <option value="Bryce canyon">
+                <option value="canyonlands">
+                <option value="capitol reef">
+                <option value="Carlsbad Caverns">
+                <option value="Channel islands">
+                <option value="congaree">
+                <option value="Crater lake">
+                <option value="cuyahoga valley">
+                <option value="Death valley">
+                <option value="Denali">
+                <option value="Dry tortugas">
+                <option value="Everglades">
+                <option value="Gates of the arctic">
+                <option value="Gateway arch">
+                <option value="Glacier">
+                <option value="Glacier Bay">
+                <option value="Grand Canyon">
+                <option value="Grand Teton">
+                <option value="Great basin">
+                <option value="Great sand dunes">
+                <option value="Great smokey mountains">
+                <option value="Guadalupe Mountains">
+                <option value="Haleakala">
+                <option value="Hawaii volcanoes">
+                <option value="Hot springs">
+                <option value="Indiana dunes">
+                <option value="Isle royale">
+                <option value="Joshua tree">
+                <option value="Katmai">
+                <option value="Kenai Fjords">
+                <option value="Kings canyon">
+                <option value="Kobuk valley">
+                <option value="Lake clark">
+                <option value="Lassen volcanic">
+                <option value="Mammoth cave">
+                <option value="Mesa verde">
+                <option value="Mount Rainer">
+                <option value="New river gorge">
+                <option value="North cascades">
+                <option value="Olympic">
+                <option value="Petrified forest">
+                <option value="Pinnacles">
+                <option value="Redwood">
+                <option value="Rocky mountain">
+                <option value="Saguaro">
+                <option value="Sequoia">
+                <option value="Shenandoah">
+                <option value="theodore roosevelt">
+                <option value="virgin islands">
+                <option value="voyageurs">
+                <option value="White sands">
+                <option value="Wind cave">
+                <option value="Wrangell- st.elias">
+                <option value="yellowstone">
+                <option value="yosemite">
+                <option value="zion"> -->
+                   
+                </datalist>
+            
             <fieldset class="cell large-6">
-              <input id="formHotels" type="checkbox"><label class="btn-color" for="formHotels">Hotels</label>
-              <input id="formActivities" type="checkbox"><label class="btn-color" for="formActivities">Activities</label>
-              <input id="formResturaunts" type="checkbox"><label class="btn-color" for="formResturaunts">Resturaunts</label>
+              <p><input id="formHotels" type="checkbox"><label class="btn-color" for="formHotels">Hotels</label></p>
+              <p><input id="formActivities" type="checkbox"><label class="btn-color" for="formActivities">Activities</label></p>
+              <p><input id="formRestaurants" type="checkbox"><label class="btn-color" for="formRestaurants">Restaurants</label></p>
             </fieldset>
+            <!-- Placeholder search button -->
+            <button id="search-btn" type="submit">Search</button> 
         </form>
     </section>
-    
-    <section class="about-us">
+
+    <!-- Placeholder results container -->
+    <section>
       <div class="container">
         <div class="row">
           <div class="col s12 m6">
-            <h3 class="header-text" id="about-us"><span>About Us</span></h3>
-            <p class="flow-text">NATGO is a company founded in 2022. add more about me here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <h3 class="header-text" id="results"><span>Results</span></h3>
+            <div class="row align-center">
+              <div id="activity-results" class="small-12 columns align-center">...</div>
+              <div id="hotel-results" class="small-12 columns">...</div>
+              <div id="restaurant-results" class="small-12 columns">...</div>
+            </div>
           </div>
           <div class="col s12 m6"></div>
         </div>  
     </section>
 
-    <br>
+    <section class="about-us">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 m6">
+            <h3 class="header-text" id="about-us"><span>About Us</span></h3>
+            <p class="flow-text">Welcome to NATGO the app that helps you plan out your most relaxing vacations or adventurous getaways exploring the world’s most magnificent national parks! We're dedicated to giving you the best and easiest experience in finding which park to explore, what activities and amenities to enjoy and where your next adventure will take place!
+
+              <br>
+              <br>
+              Founded in 2022, NATGO has come a long way from its inception. Starting out as a web app to list all national parks in the US, as time went on it evolved into what we offer today, a full fledge service of planning your next trip!
+              </p>
+          </div>
+          <div class="col s12 m6"></div>
+        </div>  
+    </section>
+
+    <hr>
 
     <section class="Services">
       <div class="container">
         <div class="row">
           <div class="col s12 m6">
             <h3 class="header-text" id="services"><span>Services</span></h3>
-            <p class="flow-text">Services info goes here, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="flow-text">Here at NATGO we provide numerous services, such as locating which national park you’d like to explore next! As well as being able to look for hotels, restaurants, and activities in the area while you embark on your next adventure!</p>
           </div>
           <div class="col s12 m6"></div>
         </div>  
     </section>
 
-    <br>
+    <hr>
 
     <footer class="contact-us">
       <div class="row">
         <div class="col s12 m6">
           <h3 class="header-text-inv" id="contact-us"><span>Contact Us</span></h3>
-            <p class="flow-text-inv">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="flow-text-inv">If you have any questions or issues please contact us here!</p>
           <div class="col s12 m6"></div>
 
           <div class="contact-links">
@@ -88,5 +173,7 @@
           </div>
     </footer>
 
+
+  <script src="./assets/script.js"></script>
 </body>
 </html>
