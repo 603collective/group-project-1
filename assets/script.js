@@ -263,10 +263,8 @@ for (i = 0; i < parkNames.length; i++) {
 // Reset con
 function resetContainers() {
   hotelContainer.removeAttribute("class");
-  activityContainer.removeAttribute("class");
   restaurantContainer.removeAttribute("class");
   hotelContainer.setAttribute("class", "small-12 columns");
-  activityContainer.setAttribute("class", "small-12 columns");
   restaurantContainer.setAttribute("class", "small-12 columns");
 }
 
@@ -291,7 +289,7 @@ const searchHandler = function(event) {
   foodArray = [];
   resetContainers();
   // Check how many boxes are checked and add size classes to results columns depending
-  resizeContainers(formHotels.checked, formActivities.checked, formRestaurants.checked);
+  resizeContainers(formHotels.checked, formRestaurants.checked);
   // Retrieve lat/long from formPark.value
   currentPark = formPark.value;
   let lat = parkLatLong[formPark.value][0];
