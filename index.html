@@ -104,27 +104,26 @@
                 </datalist>
             
             <fieldset class="cell large-6">
-              <p>
-              <input id="formHotels" type="checkbox"><label class="btn-color" for="formHotels">Hotels</label>
-              </p>
-
-             <p> <input id="formActivities" type="checkbox"><label class="btn-color" for="formActivities">Activities</label></p>
+              <p><input id="formHotels" type="checkbox"><label class="btn-color" for="formHotels">Hotels</label></p>
+              <p><input id="formActivities" type="checkbox"><label class="btn-color" for="formActivities">Activities</label></p>
               <p><input id="formRestaurants" type="checkbox"><label class="btn-color" for="formRestaurants">Restaurants</label></p>
             </fieldset>
             <!-- Placeholder search button -->
-            <button id="search-btn" type="submit"></button> 
+            <button id="search-btn" type="submit">Search</button> 
         </form>
     </section>
 
     <!-- Placeholder results container -->
-    <section id="results">
+    <section>
       <div class="container">
         <div class="row">
           <div class="col s12 m6">
             <h3 class="header-text" id="results"><span>Results</span></h3>
-            <div id="activity-results"></div>
-            <div id="hotel-results"></div>
-            <div id="restaurant-results"></div>
+            <div class="row align-center">
+              <div id="activity-results" class="small-12 columns align-center">...</div>
+              <div id="hotel-results" class="small-12 columns">...</div>
+              <div id="restaurant-results" class="small-12 columns">...</div>
+            </div>
           </div>
           <div class="col s12 m6"></div>
         </div>  

@@ -193,28 +193,28 @@ function findAmenity(latitude, longitude, amenity) {
 function displayAmenities(array, container) {
   for (let i = 0; i < array.length; i++) {
     let nameEl = document.createElement("h3");
-    nameEl.textContent = array[i].name;
+    let catEl = document.createElement("p");
     let imgEl = document.createElement("img");
+    let priceEl = document.createElement("p");
+    // let distanceEl = document.createElement("p");
+    // let ratingEl = document.createElement("p");
+    nameEl.textContent = array[i].name;
     imgEl.setAttribute("src", array[i].image);
     imgEl.style.maxWidth = "300px";
-    imgEl.textContent = array[i].image;
-    let priceEl = document.createElement("p");
-    priceEl.textContent = array[i].price;
-    let distanceEl = document.createElement("p");
-    distanceEl.textContent = array[i].distance;
-    let ratingEl = document.createElement("p");
-    ratingEl.textContent = array[i].rating;
-    let catEl = document.createElement("p");
+    priceEl.innerHTML = "Price: <strong>" + array[i].price + "</strong> || Average Yelp Rating: " + array[i].rating + " || Distance: " + array[i].distance
+    // distanceEl.textContent = array[i].distance;
+    // ratingEl.textContent = array[i].rating;
+    catEl.textContent = "Categories: "
     for (let j = 0; j < array[i].categories.length - 1; j++) {  //print each category separated by commas
       catEl.textContent += array[i].categories[j] + ", ";
     };
     catEl.textContent += array[i].categories.pop(); //print last category with no comma
     container.append(nameEl);
+    container.append(catEl);
     container.append(imgEl);
     container.append(priceEl);
-    container.append(distanceEl);
-    container.append(ratingEl);
-    container.append(catEl);
+    // container.append(distanceEl);
+    // container.append(ratingEl);
   }
 };
 
@@ -242,17 +242,45 @@ for (i = 0; i < parkNames.length; i++) {
 // FORM SUBMISSION EVENT HANDLING
 // 
 
+function resetContainers() {
+  hotelContainer.removeAttribute("class");
+  activityContainer.removeAttribute("class");
+  restaurantContainer.removeAttribute("class");
+  hotelContainer.setAttribute("class", "small-12 columns");
+  activityContainer.setAttribute("class", "small-12 columns");
+  restaurantContainer.setAttribute("class", "small-12 columns");
+}
+
+function resizeContainers(hotels, activities, restaurants) {
+  if (hotels && activities && restaurants) {
+    hotelContainer.classList.add("large-4");
+    activityContainer.classList.add("large-4");
+    restaurantContainer.classList.add("large-4");
+  } else if (hotels && activities) {
+    hotelContainer.classList.add("large-6");
+    activityContainer.classList.add("large-6");
+  } else if (hotels && restaurants) {
+    hotelContainer.classList.add("large-6");
+    restaurantContainer.classList.add("large-6");
+  } else if (activities && restaurants) {
+    activityContainer.classList.add("large-6");
+    restaurantContainer.classList.add("large-6");
+  }
+}
+
 const searchHandler = function(event) {
   event.preventDefault();
   // Make container viewable
   resultsContainer.style.display = "block";
-  // Remove any previous search results NOT CURRENTLY WORKING
+  // Remove any previous search results
   hotelContainer.innerHTML = ""
   activityContainer.innerHTML = ""
   restaurantContainer.innerHTML = ""
-  // Retrieve park name from formPark.value
-  let parkFullName;
-
+  hotelArray = [];
+  foodArray = [];
+  resetContainers();
+  // Check how many boxes are checked and add size classes to results columns depending
+  resizeContainers(formHotels.checked, formActivities.checked, formRestaurants.checked);
   // Retrieve lat/long from formPark.value
   let lat = parkLatLong[formPark.value][0];
   let long = parkLatLong[formPark.value][1];
