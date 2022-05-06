@@ -4,6 +4,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.nav-bar{
+    position: fixed;
+}
+
 header{
     z-index: 999;
     position: absolute;
@@ -16,10 +20,6 @@ header{
     padding: 15px 200px;
     transition: 0.5s ease;
     background-color: rgba(0,0,0,.25);
-}
-
-.nav-bar{
-    position: fixed;
 }
 
 header .brand-logo{
@@ -60,16 +60,21 @@ header .navigation .nav-links a:hover:before{
 }
 
 .btn-color{
-    background-color: #0b410d; /* Green */
-  border: none;
-  border-radius:  50%;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  font-weight: bold;
-  color: #fff;
+  
+  position: absolute;
+    width: fit-content;
+    padding: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    border: 2px solid #fff;
+    outline: none;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .showcase{
@@ -122,25 +127,6 @@ header .navigation .nav-links a:hover:before{
     margin-bottom: 25px;
 }
 
-.showcase .media-icons{
-    z-index: 888;
-    position: absolute;
-    right: 30px;
-    display: flex;
-    flex-direction: column;
-    transition: 0.5s ease;
-}
-
-.showcase .media-icons a{
-    color: #fff;
-    font: 2em;
-    transition: 0.3s ease;
-}
-
-.showcase .media-icons a:hover{
-    transform: scale(1.3);
-}
-
 .showcase .video{
     z-index: 000;
     position: absolute;
@@ -176,7 +162,7 @@ header .navigation .nav-links a:hover:before{
     left: 45%;
 }
 
-#search{
+#search-btn{
     position: absolute;
     width: fit-content;
     padding: 10px;
@@ -193,7 +179,7 @@ header .navigation .nav-links a:hover:before{
     align-items: center;
 }
 
-#search:hover{
+#search-btn:hover{
     position: absolute;
     padding: 10px;
     padding-right: 10px;
