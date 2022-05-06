@@ -104,6 +104,9 @@ function processNpsData() {
 }
 
 function displayActivities(parkFullName) {
+  let columnHeader = document.createElement("h3");
+  columnHeader.textContent = "Activities at " + currentPark;
+  activityContainer.append(columnHeader);
   let activitiesEl = document.createElement("h4");
   for (i = 0; i < activityOptions[parkFullName].length -1; i++) {
     activitiesEl.textContent += activityOptions[parkFullName][i] + ", ";
@@ -191,30 +194,45 @@ function findAmenity(latitude, longitude, amenity) {
 };
 
 function displayAmenities(array, container) {
+  let columnHeader = document.createElement("h3");
+  if (container == "hotelContainer") {
+    columnHeader.textContent = "Hotels near " + currentPark;
+  } else {
+    columnHeader.textContent = "Restaurants near " + currentPark;
+  }
+  container.append(columnHeader);
   for (let i = 0; i < array.length; i++) {
-    let nameEl = document.createElement("h3");
-    let catEl = document.createElement("p");
-    let imgEl = document.createElement("img");
-    let priceEl = document.createElement("p");
-    // let distanceEl = document.createElement("p");
-    // let ratingEl = document.createElement("p");
-    nameEl.textContent = array[i].name;
-    imgEl.setAttribute("src", array[i].image);
-    imgEl.style.maxWidth = "300px";
-    priceEl.innerHTML = "Price: <strong>" + array[i].price + "</strong> || Average Yelp Rating: " + array[i].rating + " || Distance: " + array[i].distance
-    // distanceEl.textContent = array[i].distance;
-    // ratingEl.textContent = array[i].rating;
+    // Card
+    let cardEl = document.createElement("div");
+    cardEl.setAttribute("class", "card");
+    // Card header with business name
+    let nameEl = document.createElement("div");
+    nameEl.setAttribute("class", "card-header");
+    nameEl.innerHTML = "<h3>" + array[i].name + "</h3>";
+    // Card section with categories
+    let catEl = document.createElement("div");
+    catEl.setAttribute("class", "card-section");
     catEl.textContent = "Categories: "
     for (let j = 0; j < array[i].categories.length - 1; j++) {  //print each category separated by commas
       catEl.textContent += array[i].categories[j] + ", ";
     };
     catEl.textContent += array[i].categories.pop(); //print last category with no comma
-    container.append(nameEl);
-    container.append(catEl);
-    container.append(imgEl);
-    container.append(priceEl);
-    // container.append(distanceEl);
-    // container.append(ratingEl);
+    // Card section with image
+    let imgSecEl = document.createElement("div");
+    imgSecEl.setAttribute("class", "card-section");
+    let imgEl = document.createElement("img");
+    imgEl.setAttribute("src", array[i].image);
+    // Card section with pricing, rating, and distance
+    let infoEl = document.createElement("div");
+    infoEl.setAttribute("class", "card-section"); 
+    infoEl.innerHTML = "<p>Price: <strong>" + array[i].price + "</strong> </p><p>Average Yelp Rating: " + array[i].rating + " </p><p> Distance: " + array[i].distance + "</p>";
+    // Append elements to create card
+    imgSecEl.append(imgEl);
+    cardEl.append(nameEl);
+    cardEl.append(catEl);
+    cardEl.append(imgSecEl);
+    cardEl.append(infoEl);
+    container.append(cardEl);
   }
 };
 
@@ -242,37 +260,28 @@ for (i = 0; i < parkNames.length; i++) {
 // FORM SUBMISSION EVENT HANDLING
 // 
 
+// Reset con
 function resetContainers() {
   hotelContainer.removeAttribute("class");
-  activityContainer.removeAttribute("class");
   restaurantContainer.removeAttribute("class");
   hotelContainer.setAttribute("class", "small-12 columns");
-  activityContainer.setAttribute("class", "small-12 columns");
   restaurantContainer.setAttribute("class", "small-12 columns");
 }
 
-function resizeContainers(hotels, activities, restaurants) {
-  if (hotels && activities && restaurants) {
-    hotelContainer.classList.add("large-4");
-    activityContainer.classList.add("large-4");
-    restaurantContainer.classList.add("large-4");
-  } else if (hotels && activities) {
+function resizeContainers(hotels, restaurants) {
+  if (hotels && restaurants) {
     hotelContainer.classList.add("large-6");
-    activityContainer.classList.add("large-6");
-  } else if (hotels && restaurants) {
-    hotelContainer.classList.add("large-6");
-    restaurantContainer.classList.add("large-6");
-  } else if (activities && restaurants) {
-    activityContainer.classList.add("large-6");
     restaurantContainer.classList.add("large-6");
   }
-}
+};
+
+let currentPark;
 
 const searchHandler = function(event) {
   event.preventDefault();
   // Make container viewable
   resultsContainer.style.display = "block";
-  // Remove any previous search results
+  // Remove any previous search results/reset containers
   hotelContainer.innerHTML = ""
   activityContainer.innerHTML = ""
   restaurantContainer.innerHTML = ""
@@ -280,8 +289,9 @@ const searchHandler = function(event) {
   foodArray = [];
   resetContainers();
   // Check how many boxes are checked and add size classes to results columns depending
-  resizeContainers(formHotels.checked, formActivities.checked, formRestaurants.checked);
+  resizeContainers(formHotels.checked, formRestaurants.checked);
   // Retrieve lat/long from formPark.value
+  currentPark = formPark.value;
   let lat = parkLatLong[formPark.value][0];
   let long = parkLatLong[formPark.value][1];
   whichAmenities(lat, long, formHotels.checked, formRestaurants.checked);
