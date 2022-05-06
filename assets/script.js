@@ -270,7 +270,7 @@ function resetContainers() {
   restaurantContainer.setAttribute("class", "small-12 columns");
 }
 
-function resizeContainers(hotels, activities, restaurants) {
+function resizeContainers(hotels, restaurants) {
   if (hotels && restaurants) {
     hotelContainer.classList.add("large-6");
     restaurantContainer.classList.add("large-6");
