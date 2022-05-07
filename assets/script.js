@@ -282,8 +282,17 @@ let currentPark;
 
 const searchHandler = function(event) {
   event.preventDefault();
-  // Make container viewable
+  // Make containers viewable
   resultsContainer.style.display = "block";
+  if (formActivities.checked) {
+    activityContainer.style.display = "block";
+  }
+  if (formHotels.checked) {
+    hotelContainer.style.display = "block";
+  }
+  if (formRestaurants.checked) {
+    restaurantContainer.style.display = "block";
+  }
   // Remove any previous search results/reset containers
   hotelContainer.innerHTML = ""
   activityContainer.innerHTML = ""

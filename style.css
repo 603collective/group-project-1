@@ -246,6 +246,18 @@ footer{
 }
 
 #activity-results{
+    display: none;
+}
+
+#hotel-results{
+    display: none;
+}
+
+#restaurant-results{
+    display: none;
+}
+
+#activity-results{
     background-color:rgb(69, 87, 39);
     color: rgb(243, 228, 210);
     border-top-style: double;
