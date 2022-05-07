@@ -103,21 +103,26 @@ function processNpsData() {
 
 }
 
+// Displays a comma separated list of activities for the given park in the activityContainer
 function displayActivities(parkFullName) {
   let columnHeader = document.createElement("h3");
   columnHeader.textContent = "Activities at " + currentPark;
-  activityContainer.append(columnHeader);
   let activitiesEl = document.createElement("h4");
   for (i = 0; i < activityOptions[parkFullName].length -1; i++) {
     activitiesEl.textContent += activityOptions[parkFullName][i] + ", ";
   };
-  activitiesEl.textContent += activityOptions[parkFullName].pop(); //print last category with no comma
+  activitiesEl.textContent += activityOptions[parkFullName].pop(); //print last activity with no comma
+  activityContainer.append(columnHeader);
   activityContainer.append(activitiesEl);
 };
 
 //
 // YELP, RESTAURANT AND/OR HOTEL SEARCH
 //
+
+// Create empty array to which an object for each returned restaurant will be pushed
+let hotelArray = [];
+let foodArray = [];
 
 // Unsecured key lol
 const yelpAPIClientID = "2gz6fez22yED_zpA6BcHbQ";
@@ -133,10 +138,6 @@ const yelpOptions = {
     }
 };
 
-// Create empty array to which an object for each returned restaurant will be pushed
-let hotelArray = [];
-let foodArray = [];
-
 function findAmenity(latitude, longitude, amenity) {
   // Create URL from latitude and longitude data from NPS API
   // amenity should be "restaurants" for food and "hotels,campgrounds,bedbreakfast" for hotels.
@@ -149,7 +150,7 @@ function findAmenity(latitude, longitude, amenity) {
   } else if (amenity == "restaurants") {
     amenityType = "restaurants"
   };
-  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000&limit=5"
+  let yelpAPIURL = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=" + amenityType + "&latitude=" + latitude + "&longitude=" + longitude + "&radius=20000&limit=12"
   fetch(yelpAPIURL, yelpOptions)
   .then(function(response) {
     if(response.ok) {
@@ -193,6 +194,7 @@ function findAmenity(latitude, longitude, amenity) {
   })
 };
 
+// Uses the hotelArray or foodArray and displays the data in hotelContainer or restaurantContainer
 function displayAmenities(array, container) {
   let columnHeader = document.createElement("h3");
   if (container == "hotelContainer") {
@@ -260,7 +262,7 @@ for (i = 0; i < parkNames.length; i++) {
 // FORM SUBMISSION EVENT HANDLING
 // 
 
-// Reset con
+// Reset containers for each new search
 function resetContainers() {
   hotelContainer.removeAttribute("class");
   restaurantContainer.removeAttribute("class");
@@ -268,6 +270,7 @@ function resetContainers() {
   restaurantContainer.setAttribute("class", "small-12 columns");
 }
 
+// Resize containers depending on 
 function resizeContainers(hotels, restaurants) {
   if (hotels && restaurants) {
     hotelContainer.classList.add("large-6");
